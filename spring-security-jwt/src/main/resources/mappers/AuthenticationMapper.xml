@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springsecurityjwt.mybatis.mapper.AuthenticationMapper">
+    <resultMap id="UserDAOMap" type="com.example.springsecurityjwt.mybatis.entity.UserDAO">
+        <id property="id" column="id"/>
+        <result property="name" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <insert id="saveUserDAO" parameterType="com.example.springsecurityjwt.mybatis.entity.UserDAO">
+        insert into user(username,password) values (#{name},#{password})
+    </insert>
+
+    <select id="loadUserByUsername" resultMap="UserDAOMap">
+        select * from user where username = #{username} limit 1
+    </select>
+
+    <select id="findRoleByUserId" resultType="com.example.springsecurityjwt.mybatis.entity.Role">
+        select * from role where user_id = #{userId}
+    </select>
+</mapper>
